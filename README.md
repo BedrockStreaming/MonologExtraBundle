@@ -40,6 +40,8 @@ m6_web_monolog_extra:
             type: ContexteInformation
 
             # You can attach the processor to a handler or a channel, but not both
+            # Those two configuration entry are optionnal, if you omit both
+            # then the processor will be attached to all log channel and handlers.
             handler: gelf
             channel: request
 
