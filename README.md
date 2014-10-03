@@ -56,5 +56,5 @@ m6_web_monolog_extra:
 ## Tests
 
 ```shell
-./vendor/bin/atoum
+$ ./vendor/bin/atoum
 ```
