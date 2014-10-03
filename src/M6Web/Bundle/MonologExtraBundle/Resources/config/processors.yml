@@ -1,0 +1,2 @@
+parameters:
+    m6_web_monolog_extra.processor.contextInformation.class: M6Web\Bundle\MonologExtraBundle\Processor\ContextInformationProcessor

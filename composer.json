@@ -1,0 +1,26 @@
+
+{
+    "name": "m6web/monolog-extra-bundle",
+    "type": "symfony-bundle",
+    "description": "Provide extra features for Monolog",
+    "keywords": ["log", "logging"],
+    "homepage": "https://github.com/M6Web/MonologExtraBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "M6Web",
+            "email": "opensource@m6web.fr",
+            "homepage": "http://tech.m6web.fr/"
+        }
+    ],
+    "require": {
+        "php": ">=5.3",
+        "symfony/monolog-bundle": "2.*"
+    },
+    "require-dev": {
+        "atoum/atoum": "dev-master"
+    },
+    "autoload": {
+        "psr-0": { "": "src/" }
+    }
+}
