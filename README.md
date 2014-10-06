@@ -37,7 +37,7 @@ m6_web_monolog_extra:
 
             # Given that there is only one processor for now,
             # type is optionnal and will have ContextInformation as default value
-            type: ContexteInformation
+            type: ContextInformation
 
             # You can attach the processor to a handler or a channel, but not both
             # Those two configuration entry are optionnal, if you omit both
