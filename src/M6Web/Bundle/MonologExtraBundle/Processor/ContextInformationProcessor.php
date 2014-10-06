@@ -3,6 +3,11 @@ namespace M6Web\Bundle\MonologExtraBundle\Processor;
 
 class ContextInformationProcessor
 {
+    /**
+     * Processor configuration
+     *
+     * @var array
+     */
     protected $configuration;
 
     /**
@@ -16,7 +21,12 @@ class ContextInformationProcessor
         return $record;
     }
 
-    public function setConfiguration($config)
+    /**
+     * Define processor configuration
+     *
+     * @param array $config
+     */
+    public function setConfiguration(array $config)
     {
         $this->configuration = $config;
     }
