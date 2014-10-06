@@ -11,8 +11,6 @@ use Symfony\Component\DependencyInjection\Loader;
 
 /**
  * This is the class that loads and manages your bundle configuration
- *
- * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
 class M6WebMonologExtraExtension extends Extension
 {
@@ -50,7 +48,14 @@ class M6WebMonologExtraExtension extends Extension
                 $definition->addtag('monolog.processor', $tagOptions);
 
                 if (array_key_exists('config', $processor)) {
-                    $definition->addMethodCall('setConfiguration', [$processor['config']]);
+                    $reflextion = new \ReflectionClass($container->getParameter($classParameter));
+                    if ($reflextion->hasMethod('setConfiguration')) {
+                        $definition->addMethodCall('setConfiguration', [$processor['config']]);
+                    } else {
+                        throw new InvalidConfigurationException(
+                            sprintf('"%s" processor is not configurable.', $processor['type'])
+                        );
+                    }
                 }
 
                 $container->setDefinition($serviceId, $definition);
