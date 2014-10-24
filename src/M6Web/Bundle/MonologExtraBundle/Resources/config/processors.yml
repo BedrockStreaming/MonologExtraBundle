@@ -6,10 +6,10 @@ services:
         abstract: true
         class: %m6_web_monolog_extra.processor.contextInformation.class%
         arguments:
-            - @container
+            - @service_container
             - @m6_web_monolog_extra.expression_language
         calls:
-            - { method: setConfiguration, arguments: [] }
+            - [ setConfiguration, []]
 
     m6_web_monolog_extra.expression_language:
         class: Symfony\Component\ExpressionLanguage\ExpressionLanguage
