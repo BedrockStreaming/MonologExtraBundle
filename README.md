@@ -50,6 +50,7 @@ m6_web_monolog_extra:
             config:
                 foo: bar
                 bar: foo
+                env: expr(container.getParameter('kernel.environment'))
 
 ```
 

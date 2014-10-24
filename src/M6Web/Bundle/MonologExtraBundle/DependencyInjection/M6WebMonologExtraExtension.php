@@ -3,7 +3,6 @@
 namespace M6Web\Bundle\MonologExtraBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -30,11 +29,6 @@ class M6WebMonologExtraExtension extends Extension
 
             foreach ($config['processors'] as $name => $processor) {
                 $serviceId      = sprintf('%s.processor.%s', $alias, is_int($name) ? uniqid() : $name);
-                $classParameter = sprintf('%s.processor.%s.class', $alias, $processor['type']);
-
-                if (!$container->hasParameter($classParameter)) {
-                    throw new InvalidConfigurationException(sprintf('Invalid processor type "%s"', $processor['type']));
-                }
 
                 $tagOptions = [];
                 if (array_key_exists('channel', $processor)) {
@@ -44,12 +38,13 @@ class M6WebMonologExtraExtension extends Extension
                     $tagOptions['handler'] = $processor['handler'];
                 }
 
-                $definition = new Definition('%'.$classParameter.'%');
+                $definition = clone $container->getDefinition(sprintf('%s.processor.%s', $alias, $processor['type']));
+                $definition->setAbstract(false);
                 $definition->addtag('monolog.processor', $tagOptions);
 
                 if (array_key_exists('config', $processor)) {
-                    $reflextion = new \ReflectionClass($container->getParameter($classParameter));
-                    if ($reflextion->hasMethod('setConfiguration')) {
+                    if ($definition->hasMethodCall('setConfiguration')) {
+                        $definition->removeMethodCall('setConfiguration');
                         $definition->addMethodCall('setConfiguration', [$processor['config']]);
                     } else {
                         throw new InvalidConfigurationException(
