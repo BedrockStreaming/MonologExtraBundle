@@ -13,4 +13,4 @@ services:
 
     m6_web_monolog_extra.expression_language:
         class: Symfony\Component\ExpressionLanguage\ExpressionLanguage
-        private: true
+        public: false
