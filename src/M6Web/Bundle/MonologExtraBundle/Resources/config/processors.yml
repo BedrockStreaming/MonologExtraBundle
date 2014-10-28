@@ -1,2 +1,16 @@
 parameters:
     m6_web_monolog_extra.processor.contextInformation.class: M6Web\Bundle\MonologExtraBundle\Processor\ContextInformationProcessor
+
+services:
+    m6_web_monolog_extra.processor.contextInformation:
+        abstract: true
+        class: %m6_web_monolog_extra.processor.contextInformation.class%
+        arguments:
+            - @service_container
+            - @m6_web_monolog_extra.expression_language
+        calls:
+            - [ setConfiguration, []]
+
+    m6_web_monolog_extra.expression_language:
+        class: Symfony\Component\ExpressionLanguage\ExpressionLanguage
+        public: false
