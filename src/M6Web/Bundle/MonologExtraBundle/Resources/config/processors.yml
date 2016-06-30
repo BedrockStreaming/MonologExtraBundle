@@ -4,10 +4,10 @@ parameters:
 services:
     m6_web_monolog_extra.processor.contextInformation:
         abstract: true
-        class: %m6_web_monolog_extra.processor.contextInformation.class%
+        class: '%m6_web_monolog_extra.processor.contextInformation.class%'
         arguments:
-            - @service_container
-            - @m6_web_monolog_extra.expression_language
+            - '@service_container'
+            - '@m6_web_monolog_extra.expression_language'
         calls:
             - [ setConfiguration, []]
 
