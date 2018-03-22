@@ -38,7 +38,7 @@ class M6WebMonologExtraExtension extends Extension
                     $tagOptions['handler'] = $processor['handler'];
                 }
 
-                $definition = clone $container->getDefinition(sprintf('%s.processor.%s', $alias, $processor['type']));
+                $definition = clone $container->getDefinition(sprintf('%s.processor.%s', $alias, lcfirst($processor['type'])));
                 $definition->setAbstract(false);
                 $definition->addtag('monolog.processor', $tagOptions);
 
