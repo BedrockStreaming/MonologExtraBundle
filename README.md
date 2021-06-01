@@ -2,6 +2,9 @@
 
 Provide extra features for Monolog.
 
+The actual version of this bundle support `Symfony >= 4.4`.
+If you need support for older versions, you have to use version `< 3.0`.
+
 ## Installation
 
 Via composer :
