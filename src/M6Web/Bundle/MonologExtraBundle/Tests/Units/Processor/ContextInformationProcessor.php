@@ -1,13 +1,12 @@
 <?php
 namespace M6Web\Bundle\MonologExtraBundle\Tests\Units\Processor;
 
-use mageekguy\atoum\test;
-
+use atoum;
 use M6Web\Bundle\MonologExtraBundle\Processor\ContextInformationProcessor as Base;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
-class ContextInformationProcessor extends test
+class ContextInformationProcessor extends atoum
 {
     public function testInvoke()
     {
