@@ -4,13 +4,13 @@ namespace M6Web\Bundle\MonologExtraBundle\Tests\Units\DependencyInjection;
 
 use M6Web\Bundle\MonologExtraBundle\DependencyInjection\M6WebMonologExtraExtension as TestedClass;
 
-use mageekguy\atoum\test;
+use atoum;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Class M6WebMonologExtraExtension
  */
-class M6WebMonologExtraExtension extends test
+class M6WebMonologExtraExtension extends atoum
 {
     public function testLoad()
     {
