@@ -1,4 +1,4 @@
-# MonologExtraBundle [![Build Status](https://travis-ci.org/M6Web/MonologExtraBundle.svg?branch=master)](https://travis-ci.org/M6Web/MonologExtraBundle)
+# MonologExtraBundle [![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2FBedrockStreaming%2FMonologExtraBundle%2Fbadge%3Fref%3Dmaster&style=flat)](https://actions-badge.atrox.dev/BedrockStreaming/MonologExtraBundle/goto?ref=master)
 
 Provide extra features for Monolog.
 
