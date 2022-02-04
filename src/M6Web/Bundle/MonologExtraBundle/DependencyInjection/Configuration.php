@@ -13,7 +13,7 @@ class Configuration implements ConfigurationInterface
     /**
      * {@inheritDoc}
      */
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('m6_web_monolog_extra');
         $rootNode = $treeBuilder->getRootNode();
