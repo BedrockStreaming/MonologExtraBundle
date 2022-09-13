@@ -1,6 +1,7 @@
 <?php
 namespace M6Web\Bundle\MonologExtraBundle\Processor;
 
+use Monolog\LogRecord;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
@@ -22,16 +23,11 @@ class ContextInformationProcessor
      */
     protected $configuration;
 
-    /**
-     * @param  array $record
-     *
-     * @return array
-     */
-    public function __invoke(array $record)
+    public function __invoke(LogRecord $record): LogRecord
     {
-        $record['context'] = array_merge($this->evaluateConfiguration(), $record['context']);
-
-        return $record;
+        return $record->with(
+            context: array_merge($this->evaluateConfiguration(), $record['context'])
+        );
     }
 
     /**
