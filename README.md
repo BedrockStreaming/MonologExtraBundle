@@ -56,9 +56,3 @@ m6_web_monolog_extra:
                 env: expr(container.getParameter('kernel.environment'))
 
 ```
-
-## Tests
-
-```shell
-$ ./vendor/bin/atoum
-```
