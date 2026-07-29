@@ -4,10 +4,10 @@ on: [push]
 jobs:
   tests:
     name: Tests
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
-        version: ['8.1']
+        version: ['8.2', '8.3', '8.4']
         flags: ['', '--prefer-lowest']
       fail-fast: false
     steps:
@@ -15,6 +15,6 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.version }}
-          coverage: xdebug2
+          coverage: xdebug
       - run: composer update --prefer-dist --no-interaction ${{ matrix.flags }}
       - run: vendor/bin/atoum

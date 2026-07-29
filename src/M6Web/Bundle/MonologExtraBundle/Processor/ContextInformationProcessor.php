@@ -1,4 +1,5 @@
 <?php
+
 namespace M6Web\Bundle\MonologExtraBundle\Processor;
 
 use Monolog\LogRecord;
@@ -7,8 +8,8 @@ use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
 class ContextInformationProcessor
 {
-    protected $container;
-    protected $expressionLanguage;
+    protected ContainerInterface $container;
+    protected ExpressionLanguage $expressionLanguage;
 
     public function __construct(ContainerInterface $container, ExpressionLanguage $expressionLanguage)
     {
@@ -16,56 +17,40 @@ class ContextInformationProcessor
         $this->expressionLanguage = $expressionLanguage;
     }
 
-    /**
-     * Processor configuration
-     *
-     * @var array
-     */
-    protected $configuration;
+    /** @var array<string, string> */
+    protected array $configuration;
 
     public function __invoke(LogRecord $record): LogRecord
     {
         return $record->with(
-            context: array_merge($this->evaluateConfiguration(), $record['context'])
+            context: array_merge($this->evaluateConfiguration(), $record->context)
         );
     }
 
-    /**
-     * Define processor configuration
-     *
-     * @param array $config
-     */
-    public function setConfiguration(array $config)
+    /** @param array<string, string> $config */
+    public function setConfiguration(array $config): void
     {
         $this->configuration = $config;
     }
 
-    /**
-     * Evaluate configuration array
-     *
-     * @return array
-     */
-    protected function evaluateConfiguration()
+    /** @return array<string, string> */
+    protected function evaluateConfiguration(): array
     {
-        $context = [];
-        foreach ($this->configuration as $key => $value) {
-            $context[$key] = $this->evaluateValue($value);
-        }
-
-        return $context;
+        return array_map(fn ($value) => $this->evaluateValue($value), $this->configuration);
     }
 
     /**
-     * Evaluate configuration value
-     *
-     * @param string $value
-     *
-     * @return string
+     * Evaluate configuration value.
      */
-    protected function evaluateValue($value)
+    protected function evaluateValue(string $value): string
     {
         if (preg_match('/^expr\((.*)\)$/', $value, $matches)) {
-            return $this->expressionLanguage->evaluate($matches[1], ['container' => $this->container]);
+            $result = $this->expressionLanguage->evaluate($matches[1], ['container' => $this->container]);
+            if (!is_string($result)) {
+                throw new \UnexpectedValueException(\sprintf('Expression "%s" must evaluate to a string, got %s.', $matches[1], get_debug_type($result)));
+            }
+
+            return $result;
         }
 
         return $value;

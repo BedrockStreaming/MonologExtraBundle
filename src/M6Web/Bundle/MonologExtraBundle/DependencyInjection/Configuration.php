@@ -6,13 +6,10 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
- * This is the class that validates and merges configuration from your app/config files
+ * This is the class that validates and merges configuration from your app/config files.
  */
 class Configuration implements ConfigurationInterface
 {
-    /**
-     * {@inheritDoc}
-     */
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('m6_web_monolog_extra');
@@ -29,9 +26,7 @@ class Configuration implements ConfigurationInterface
                             ->variableNode('config')->end()
                         ->end()
                         ->validate()
-                            ->ifTrue(function ($v) {
-                                return isset($v['handler']) && isset($v['channel']);
-                            })
+                            ->ifTrue(static fn ($v) => is_array($v) && isset($v['handler'], $v['channel']))
                             ->thenInvalid('You can define a channel or a handler but not both.')
                         ->end()
                     ->end()

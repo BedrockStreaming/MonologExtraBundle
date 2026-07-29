@@ -3,32 +3,30 @@
 namespace M6Web\Bundle\MonologExtraBundle\Tests\Units\DependencyInjection;
 
 use M6Web\Bundle\MonologExtraBundle\DependencyInjection\M6WebMonologExtraExtension as TestedClass;
-
-use atoum;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
- * Class M6WebMonologExtraExtension
+ * Class M6WebMonologExtraExtension.
  */
-class M6WebMonologExtraExtension extends atoum
+class M6WebMonologExtraExtension extends \atoum
 {
-    public function testLoad()
+    public function testLoad(): void
     {
         $extension = new TestedClass();
         $container = new ContainerBuilder();
-        $config = array(
-            'processors' => array(
-                'myProcessor' => array(
+        $config = [
+            'processors' => [
+                'myProcessor' => [
                     'type' => 'ContextInformation',
                     'handler' => 'gelf',
-                    'config' => array(
+                    'config' => [
                         'foo' => 'bar',
                         'bar' => 'foo',
                         'env' => "expr(container.getParameter('kernel.environment'))",
-                    ),
-                ),
-            ),
-        );
+                    ],
+                ],
+            ],
+        ];
 
         $extension->load([$config], $container);
 
@@ -38,24 +36,24 @@ class M6WebMonologExtraExtension extends atoum
             ->boolean($definition->isAbstract())
                 ->isEqualTo(false)
             ->array(array_values($definition->getMethodCalls()))
-                ->isEqualTo(array(
-                    array(
+                ->isEqualTo([
+                    [
                         'setConfiguration',
-                        array(
-                            array(
+                        [
+                            [
                                 'foo' => 'bar',
                                 'bar' => 'foo',
                                 'env' => "expr(container.getParameter('kernel.environment'))",
-                            )
-                        )
-                    )
-                ))
+                            ],
+                        ],
+                    ],
+                ])
             ->array($definition->getTags())
-                ->isEqualTo(array(
-                    'monolog.processor' => array(
-                        array('handler' => 'gelf'),
-                    )
-                ))
+                ->isEqualTo([
+                    'monolog.processor' => [
+                        ['handler' => 'gelf'],
+                    ],
+                ])
         ;
     }
 }

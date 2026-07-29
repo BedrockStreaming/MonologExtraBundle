@@ -1,0 +1,10 @@
+parameters:
+    level: 10
+    paths:
+        - src
+    excludePaths:
+        - src/M6Web/Bundle/MonologExtraBundle/Tests
+    symfony:
+        containerXmlPath: null
+    ignoreErrors: []
+    reportUnmatchedIgnoredErrors: true
